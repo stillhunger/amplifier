@@ -478,11 +478,6 @@
               <FileType>8</FileType>
               <FilePath>..\..\Src\stm32f4xx_hal_msp.cpp</FilePath>
             </File>
-            <File>
-              <FileName>stm32f4xx_it.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Src\stm32f4xx_it.cpp</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -707,6 +702,11 @@
               <FileName>stm32f4audiodriver.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>D:\libs\lukheengine\platform\stm32f4\audio\stm32f4audiodriver.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4audiodriver_it.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>D:\libs\lukheengine\platform\stm32f4\audio\stm32f4audiodriver_it.cpp</FilePath>
             </File>
           </Files>
         </Group>
