@@ -478,6 +478,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\Src\stm32f4xx_hal_msp.cpp</FilePath>
             </File>
+            <File>
+              <FileName>interruptions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Src\interruptions.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
