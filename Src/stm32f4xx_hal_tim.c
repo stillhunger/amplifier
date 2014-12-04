@@ -1307,8 +1307,11 @@ HAL_StatusTypeDef HAL_TIM_PWM_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channe
   {
     case TIM_CHANNEL_1:
     {      
+      /* Set the DMA Period half elapsed callback */
+      htim->hdma[TIM_DMA_ID_CC1]->XferHalfCpltCallback = HAL_TIM_DMADelayPulseHalfCplt;
+			
       /* Set the DMA Period elapsed callback */
-      htim->hdma[TIM_DMA_ID_CC1]->XferCpltCallback = HAL_TIM_DMADelayPulseHalfCplt;
+      htim->hdma[TIM_DMA_ID_CC1]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
      
       /* Set the DMA error callback */
       htim->hdma[TIM_DMA_ID_CC1]->XferErrorCallback = HAL_TIM_DMAError ;
@@ -1323,8 +1326,8 @@ HAL_StatusTypeDef HAL_TIM_PWM_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channe
     
     case TIM_CHANNEL_2:
     {
-			/* Set the DMA Period elapsed callback */
-      htim->hdma[TIM_DMA_ID_CC2]->XferCpltCallback = HAL_TIM_DMADelayPulseHalfCplt;
+			/* Set the DMA Period half elapsed callback */
+      htim->hdma[TIM_DMA_ID_CC2]->XferHalfCpltCallback = HAL_TIM_DMADelayPulseHalfCplt;
 			
       /* Set the DMA Period elapsed callback */
       htim->hdma[TIM_DMA_ID_CC2]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
@@ -1342,8 +1345,8 @@ HAL_StatusTypeDef HAL_TIM_PWM_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channe
     
     case TIM_CHANNEL_3:
     {
-			/* Set the DMA Period elapsed callback */
-      htim->hdma[TIM_DMA_ID_CC3]->XferCpltCallback = HAL_TIM_DMADelayPulseHalfCplt;
+			/* Set the DMA Period half elapsed callback */
+      htim->hdma[TIM_DMA_ID_CC3]->XferHalfCpltCallback = HAL_TIM_DMADelayPulseHalfCplt;
 			
       /* Set the DMA Period elapsed callback */
       htim->hdma[TIM_DMA_ID_CC3]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
@@ -1361,8 +1364,8 @@ HAL_StatusTypeDef HAL_TIM_PWM_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channe
     
     case TIM_CHANNEL_4:
     {
-			/* Set the DMA Period elapsed callback */
-      htim->hdma[TIM_DMA_ID_CC4]->XferCpltCallback = HAL_TIM_DMADelayPulseHalfCplt;
+			/* Set the DMA Period half elapsed callback */
+      htim->hdma[TIM_DMA_ID_CC4]->XferHalfCpltCallback = HAL_TIM_DMADelayPulseHalfCplt;
 			
      /* Set the DMA Period elapsed callback */
       htim->hdma[TIM_DMA_ID_CC4]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
@@ -4431,7 +4434,7 @@ void HAL_TIM_DMADelayPulseHalfCplt(DMA_HandleTypeDef *hdma)
 {
   TIM_HandleTypeDef* htim = ( TIM_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
   
-  //htim->State= HAL_TIM_STATE_READY; 
+  htim->State= HAL_TIM_STATE_READY; 
   
   HAL_TIM_PWM_PulseHalfFinishedCallback(htim);
 }
@@ -4448,7 +4451,7 @@ void HAL_TIM_DMADelayPulseCplt(DMA_HandleTypeDef *hdma)
   
   htim->State= HAL_TIM_STATE_READY; 
   
-  HAL_TIM_PWM_PulseFinishedCallback(htim);
+  HAL_TIM_PWM_PulseFinishedCallback(htim);	
 }
 /**
   * @brief  TIM DMA Capture complete callback. 
@@ -4460,7 +4463,7 @@ void HAL_TIM_DMACaptureCplt(DMA_HandleTypeDef *hdma)
 {
   TIM_HandleTypeDef* htim = ( TIM_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
     
-   htim->State= HAL_TIM_STATE_READY; 
+  htim->State= HAL_TIM_STATE_READY; 
     
   HAL_TIM_IC_CaptureCallback(htim);
 

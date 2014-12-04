@@ -35,45 +35,26 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
-/* USER CODE BEGIN Includes */
+#include "stm32f4audiodriver.hpp"
+#include "engine.hpp"
+#include "track.hpp"
+#include "randomcomponent.hpp"
 
-/* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
 
+STM32F4AudioDriver *audioDriver;
 
-
-/* USER CODE BEGIN PV */
-
-/* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
-static void MX_I2S1_Init(void);
-static void MX_I2S2_Init(void);
-static void MX_I2S5_Init(void);
-static void MX_TIM2_Init(void);
-static void MX_TIM3_Init(void);
 
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
 
 int main(void)
 {
-
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
   /* MCU Configuration----------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
@@ -84,25 +65,30 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_ADC1_Init();
-  /*MX_I2S1_Init();
-  MX_I2S2_Init();
-  MX_I2S5_Init();
-  MX_TIM2_Init();
-  MX_TIM3_Init();*/
 
-  /* USER CODE BEGIN 2 */
+	Engine *engine = (Engine *)(NULLPTR);
+	
 
-  /* USER CODE END 2 */
+	STM32F4AudioDriver localAudioDriver(SR44100, 512);
+	
+	audioDriver = &localAudioDriver;
+	Engine localEngine((AbstractAudioDriver*)audioDriver);
+	engine = &localEngine;
+	audioDriver->configure();
 
-  /* USER CODE BEGIN 3 */
+	RandomComponent rdm(0, 0);
+	engine->setComponent(0, &rdm);
+	
+	audioDriver->start();
+
+
   /* Infinite loop */
   while (1)
   {
 
   }
-  /* USER CODE END 3 */
+
 
 }
 
@@ -165,53 +151,7 @@ void MX_ADC1_Init(void)
 
 }
 
-/* I2S1 init function */
-void MX_I2S1_Init(void)
-{
 
-
-  
-
-}
-
-/* I2S2 init function */
-void MX_I2S2_Init(void)
-{
-
-
-
-}
-
-/* I2S5 init function */
-void MX_I2S5_Init(void)
-{
-
-
-
-}
-
-/* TIM2 init function */
-void MX_TIM2_Init(void)
-{
-
-
-}
-
-/* TIM3 init function */
-void MX_TIM3_Init(void)
-{
-
-  
-}
-
-/** 
-  * Enable DMA controller clock
-  */
-void MX_DMA_Init(void) 
-{
-
-
-}
 
 /** Configure pins as 
         * Analog 
