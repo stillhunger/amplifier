@@ -36,18 +36,13 @@
 #include "stm32f4xx_hal.h"
 
 extern DMA_HandleTypeDef hdma_spi1_rx;
-
 extern DMA_HandleTypeDef hdma_spi2_rx;
-
 extern DMA_HandleTypeDef hdma_spi5_rx;
 
-extern DMA_HandleTypeDef hdma_tim2_ch1;
-
 extern DMA_HandleTypeDef hdma_tim2_ch2_ch4;
-
-extern DMA_HandleTypeDef hdma_tim3_ch1_trig;
-
-extern DMA_HandleTypeDef hdma_tim3_ch4_up;
+extern DMA_HandleTypeDef hdma_tim3_ch2;
+extern DMA_HandleTypeDef hdma_tim4_ch1;
+extern DMA_HandleTypeDef hdma_tim5_ch2;
 
 /* USER CODE BEGIN 0 */
 
