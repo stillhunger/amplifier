@@ -35,6 +35,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
+#include "virtual_i2s_in.hpp"
 #include "stm32f4audiodriver.hpp"
 #include "engine.hpp"
 #include "track.hpp"
@@ -44,8 +45,8 @@
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
 
+VirtualI2sIn *pVI2sIn;
 STM32F4AudioDriver *audioDriver;
-
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -67,16 +68,23 @@ int main(void)
   MX_GPIO_Init();
   MX_ADC1_Init();
 
+	//--- Initializing local variables and linking on there external pointers if needed ---
 	Engine *engine = (Engine *)(NULLPTR);
 	
-
-	STM32F4AudioDriver localAudioDriver(SR44100, 512);
+	VirtualI2sIn localVirtualI2SIn;
+	pVI2sIn = &localVirtualI2SIn;
 	
+	STM32F4AudioDriver localAudioDriver(SR44100, 512);
 	audioDriver = &localAudioDriver;
+	
 	Engine localEngine((AbstractAudioDriver*)audioDriver);
 	engine = &localEngine;
+	
+	//--- Target depending initialization ---
 	audioDriver->configure();
 
+
+	//--- Dummy Implementation of the engine structure ---
 	RandomComponent rdm(0, 0);
 	engine->setComponent(0, &rdm);
 	
